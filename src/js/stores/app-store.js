@@ -26,12 +26,19 @@ const _findCartItem = (item) => {
   return _cartItems.find(cartItem => cartItem.id === item.id);
 };
 
-const _increase = (item) => item.qty++;
+const _increaseItem = (item) => item.qty++;
 
 const _decreaseItem = (item) => {
   item.qty--;
   if (item.qty === 0) {
     _removeItem(item);
+  }
+};
+
+const _addItem = (item) => {
+  const cartItem = _findCartItem(item);
+  if (!cartItem) {
+    _cartItems.push(Object.assign( {qty: 1}, item ));
   } else {
     _increaseItem(cartItem);
   }
